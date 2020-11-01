@@ -11,5 +11,9 @@
             Cor = cor;
             Movimentos = 0;
         }
+
+        public void IncrementarMovimento() {
+            Movimentos++;
+        }
     }
 }

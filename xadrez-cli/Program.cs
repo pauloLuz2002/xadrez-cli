@@ -6,15 +6,20 @@ namespace xadrez_cli {
     class Program {
         static void Main(string[] args) {
             try {
-                Tabuleiro tabuleiro = new Tabuleiro(8, 8);
-            
-                tabuleiro.ColocarPeca(new Torre(tabuleiro, Cor.Preta), new Posicao(0, 0));
-                tabuleiro.ColocarPeca(new Torre(tabuleiro, Cor.Preta), new Posicao(1, 3));
-                tabuleiro.ColocarPeca(new Rei(tabuleiro, Cor.Preta), new Posicao(2, 4));
+                Partida partida = new Partida();
 
-                tabuleiro.ColocarPeca(new Torre(tabuleiro, Cor.Branca), new Posicao(3, 5));
+                while (!partida.Terminada) {
+                    Console.Clear();
+                    Tela.ImprimirTabuleiro(partida.Tabuleiro);
 
-                Tela.ImprimirTabuleiro(tabuleiro);
+                    Console.Write("\nOrigem: ");
+                    Posicao origem = Tela.LerPosicaoXadrez().ConverterPosicao();
+
+                    Console.Write("Destino: ");
+                    Posicao destino = Tela.LerPosicaoXadrez().ConverterPosicao();
+
+                    partida.ExecutaMovimento(origem, destino);
+                }
             } catch (TabuleiroException e) {
                 Console.WriteLine(e.Message);
             }
