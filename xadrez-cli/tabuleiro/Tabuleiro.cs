@@ -1,10 +1,8 @@
-﻿using tabuleiro;
-
-namespace tabuleiro {
+﻿namespace tabuleiro {
     class Tabuleiro {
         public int Linhas { get; set; }
         public int Colunas { get; set; }
-        public Peca[,] Pecas { get; private set; }
+        private Peca[,] Pecas;
 
         public Tabuleiro(int linhas, int colunas) {
             Linhas = linhas;
@@ -12,9 +10,17 @@ namespace tabuleiro {
             Pecas = new Peca[Linhas, Colunas];
         }
 
+        public Peca Peca(int linha, int coluna) {
+            return Pecas[linha, coluna];
+        }
+
+        public Peca Peca(Posicao posicao) {
+            return Pecas[posicao.Linha, posicao.Coluna];
+        }
+
         public bool ExistePeca(Posicao posicao) {
             ValidarPosicao(posicao);
-            return Pecas[posicao.Linha, posicao.Coluna] != null;
+            return Peca(posicao) != null;
         } 
 
         public void ColocarPeca(Peca peca, Posicao posicao) {
@@ -26,10 +32,10 @@ namespace tabuleiro {
         }
 
         public Peca RetirarPeca(Posicao posicao) {
-            if (Pecas[posicao.Linha, posicao.Coluna] == null) {
+            if (Peca(posicao) == null) {
                 return null;
             }
-            Peca aux = Pecas[posicao.Linha, posicao.Coluna];
+            Peca aux = Peca(posicao);
             aux.Posicao = null;
             Pecas[posicao.Linha, posicao.Coluna] = null;
             return aux;

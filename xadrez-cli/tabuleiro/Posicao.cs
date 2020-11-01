@@ -8,6 +8,11 @@
             Coluna = coluna;
         }
 
+        public void AlterarPosicao(int linha, int coluna) {
+            Linha = linha;
+            Coluna = coluna;
+        }
+
         public override string ToString() {
             return $"{Linha}, {Coluna}";
         }
