@@ -1,4 +1,6 @@
-﻿namespace tabuleiro {
+﻿using System;
+
+namespace tabuleiro {
     class Tabuleiro {
         public int Linhas { get; set; }
         public int Colunas { get; set; }
@@ -11,11 +13,19 @@
         }
 
         public Peca Peca(int linha, int coluna) {
-            return Pecas[linha, coluna];
+            try {
+                return Pecas[linha, coluna];
+            } catch (Exception) {
+                throw new TabuleiroException("Posição informada não está presente no tabuleiro.");
+            }
         }
 
         public Peca Peca(Posicao posicao) {
-            return Pecas[posicao.Linha, posicao.Coluna];
+            try {
+                return Pecas[posicao.Linha, posicao.Coluna];
+            } catch (Exception) {
+                throw new TabuleiroException("Posição informada não está presente no tabuleiro.");
+            }
         }
 
         public bool ExistePeca(Posicao posicao) {

@@ -12,13 +12,31 @@
             Movimentos = 0;
         }
 
-        protected bool VerificarMovimento(Posicao pos) {
-            Peca p = Tabuleiro.Peca(pos);
+        protected bool VerificarMovimento(Posicao posicao) {
+            Peca p = Tabuleiro.Peca(posicao);
             return p == null || p.Cor != Cor;
         }
 
         public void IncrementarMovimento() {
             Movimentos++;
+        }
+
+        public bool ExisteMovimentosPossiveis() {
+            bool[,] mat = ObterMovimentosPossiveis();
+
+            for (int i = 0; i < Tabuleiro.Linhas; i++) {
+                for (int j = 0; j < Tabuleiro.Colunas; j++) {
+                    if (mat[i, j]) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool VerificarDestino(Posicao posicao) {
+            return ObterMovimentosPossiveis()[posicao.Linha, posicao.Coluna];
         }
 
         public abstract bool[,] ObterMovimentosPossiveis();

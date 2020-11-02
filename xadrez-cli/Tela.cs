@@ -37,10 +37,14 @@ namespace xadrez_cli {
         }
 
         public static PosicaoXadrez LerPosicaoXadrez() {
-            string s = Console.ReadLine();
-            char coluna = s[0];
-            int linha = int.Parse(s[1].ToString());
-            return new PosicaoXadrez(coluna, linha);
+            try {
+                string s = Console.ReadLine();
+                char coluna = s[0];
+                int linha = int.Parse(s[1].ToString());
+                return new PosicaoXadrez(coluna, linha);
+            } catch (Exception) {
+                throw new TabuleiroException("Não foi possível ler a posição informada, digite algo como por exemplo: h2.");
+            }
         }
 
         public static void ImprimirPeca(Peca peca) {
