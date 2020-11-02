@@ -10,12 +10,7 @@ namespace xadrez_cli {
                 while (!partida.Terminada) {
                     try {
                         Console.Clear();
-                        Tela.ImprimirTabuleiro(partida.Tabuleiro);
-
-                        Console.WriteLine();
-
-                        Console.WriteLine($"Turno: {partida.Turno}");
-                        Console.WriteLine($"Aguardando jogador que controla as peças de cor {partida.CorPecaJogador.ToString().ToLower()}...");
+                        Tela.ImprimirPartida(partida);
 
                         Console.Write("\nOrigem: ");
                         Posicao origem = Tela.LerPosicaoXadrez().ConverterPosicao();

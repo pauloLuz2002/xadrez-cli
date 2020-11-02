@@ -1,4 +1,5 @@
-﻿using tabuleiro;
+﻿using System.Collections.Generic;
+using tabuleiro;
 using xadrez_cli.xadrez;
 
 namespace xadrez {
@@ -7,12 +8,16 @@ namespace xadrez {
         public int Turno { get; private set; }
         public Cor CorPecaJogador { get; private set; }
         public bool Terminada { get; private set; }
+        public HashSet<Peca> PecasJogo { get; private set; }
+        public HashSet<Peca> PecasCapturadas { get; private set; }
 
         public Partida() {
             Tabuleiro = new Tabuleiro(8, 8);
             Turno = 1;
             CorPecaJogador = Cor.Branca;
             Terminada = false;
+            PecasJogo = new HashSet<Peca>();
+            PecasCapturadas = new HashSet<Peca>();
             ColocarPecas();
         }
 
@@ -21,6 +26,10 @@ namespace xadrez {
             peca.IncrementarMovimento();
             Peca pecaCapturada = Tabuleiro.RetirarPeca(destino);
             Tabuleiro.ColocarPeca(peca, destino);
+
+            if (pecaCapturada != null) {
+                PecasCapturadas.Add(pecaCapturada);
+            }
         }
 
         private void MudaCorPeca() {
@@ -50,25 +59,51 @@ namespace xadrez {
         }
 
         public void ValidarPosicaoDestino(Posicao origem, Posicao destino) {
-            if (Tabuleiro.Peca(origem).VerificarDestino(destino)) {
+            if (!Tabuleiro.Peca(origem).VerificarDestino(destino)) {
                 throw new TabuleiroException("Posição de destino inválida, pois não está listada nos movimentos possíveis.");
             }
         }
 
-        private void ColocarPecas() {
-            Tabuleiro.ColocarPeca(new Torre(Tabuleiro, Cor.Branca), new PosicaoXadrez('c', 1).ConverterPosicao());
-            Tabuleiro.ColocarPeca(new Torre(Tabuleiro, Cor.Branca), new PosicaoXadrez('c', 2).ConverterPosicao());
-            Tabuleiro.ColocarPeca(new Torre(Tabuleiro, Cor.Branca), new PosicaoXadrez('d', 2).ConverterPosicao());
-            Tabuleiro.ColocarPeca(new Torre(Tabuleiro, Cor.Branca), new PosicaoXadrez('e', 2).ConverterPosicao());
-            Tabuleiro.ColocarPeca(new Torre(Tabuleiro, Cor.Branca), new PosicaoXadrez('e', 1).ConverterPosicao());
-            Tabuleiro.ColocarPeca(new Rei(Tabuleiro, Cor.Branca), new PosicaoXadrez('d', 1).ConverterPosicao());
+        public HashSet<Peca> ObterPecasCapturadas(Cor cor) {
+            HashSet<Peca> aux = new HashSet<Peca>();
+            foreach (Peca peca in PecasCapturadas) {
+                if (peca.Cor == cor) {
+                    aux.Add(peca);
+                }
+            }
+            return aux;
+        }
 
-            Tabuleiro.ColocarPeca(new Torre(Tabuleiro, Cor.Preta), new PosicaoXadrez('c', 7).ConverterPosicao());
-            Tabuleiro.ColocarPeca(new Torre(Tabuleiro, Cor.Preta), new PosicaoXadrez('c', 8).ConverterPosicao());
-            Tabuleiro.ColocarPeca(new Torre(Tabuleiro, Cor.Preta), new PosicaoXadrez('d', 7).ConverterPosicao());
-            Tabuleiro.ColocarPeca(new Torre(Tabuleiro, Cor.Preta), new PosicaoXadrez('e', 7).ConverterPosicao());
-            Tabuleiro.ColocarPeca(new Torre(Tabuleiro, Cor.Preta), new PosicaoXadrez('e', 8).ConverterPosicao());
-            Tabuleiro.ColocarPeca(new Rei(Tabuleiro, Cor.Preta), new PosicaoXadrez('d', 8).ConverterPosicao());
+        public HashSet<Peca> DistinguirPecasJogo(Cor cor) {
+            HashSet<Peca> aux = new HashSet<Peca>();
+            foreach (Peca peca in PecasJogo) {
+                if (peca.Cor == cor) {
+                    aux.Add(peca);
+                }
+            }
+            aux.ExceptWith(ObterPecasCapturadas(cor));
+            return aux;
+        }
+
+        public void ColocarNovaPeca(char coluna, int linha, Peca peca) {
+            Tabuleiro.ColocarPeca(peca, new PosicaoXadrez(coluna, linha).ConverterPosicao());
+            PecasJogo.Add(peca);
+        }
+
+        private void ColocarPecas() {
+            ColocarNovaPeca('c', 1, new Torre(Tabuleiro, Cor.Branca));
+            ColocarNovaPeca('c', 2, new Torre(Tabuleiro, Cor.Branca));
+            ColocarNovaPeca('d', 2, new Torre(Tabuleiro, Cor.Branca));
+            ColocarNovaPeca('e', 2, new Torre(Tabuleiro, Cor.Branca));
+            ColocarNovaPeca('e', 1, new Torre(Tabuleiro, Cor.Branca));
+            ColocarNovaPeca('d', 1, new Rei(Tabuleiro, Cor.Branca));
+
+            ColocarNovaPeca('c', 7, new Torre(Tabuleiro, Cor.Preta));
+            ColocarNovaPeca('c', 8, new Torre(Tabuleiro, Cor.Preta));
+            ColocarNovaPeca('d', 7, new Torre(Tabuleiro, Cor.Preta));
+            ColocarNovaPeca('e', 7, new Torre(Tabuleiro, Cor.Preta));
+            ColocarNovaPeca('e', 8, new Torre(Tabuleiro, Cor.Preta));
+            ColocarNovaPeca('d', 8, new Rei(Tabuleiro, Cor.Preta));
         }
     }
 }

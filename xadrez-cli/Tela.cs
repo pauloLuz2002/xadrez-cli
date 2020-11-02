@@ -1,9 +1,48 @@
 ﻿using tabuleiro;
 using System;
 using xadrez_cli.xadrez;
+using xadrez;
+using System.Collections.Generic;
 
 namespace xadrez_cli {
     class Tela {
+        public static void ImprimirPartida(Partida partida) {
+            ImprimirTabuleiro(partida.Tabuleiro);
+            Console.WriteLine();
+            ImprimirPecasCapturadas(partida);
+            Console.WriteLine();
+            Console.WriteLine($"Turno: {partida.Turno}");
+            Console.WriteLine($"Aguardando jogada do jogador que controla as peças de cor {partida.CorPecaJogador.ToString().ToLower()}...");
+        }
+
+        private static void ImprimirPecasCapturadas(Partida partida) {
+            Console.WriteLine("Pecas capturadas: ");
+
+            Console.Write("Brancas: ");
+            ImprimirConjunto(partida.ObterPecasCapturadas(Cor.Branca));
+
+            Console.WriteLine();
+
+            Console.Write("Pretas: ");
+
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+
+            ImprimirConjunto(partida.ObterPecasCapturadas(Cor.Preta));
+
+            Console.ForegroundColor = aux;
+
+            Console.WriteLine();
+        }
+
+        private static void ImprimirConjunto(HashSet<Peca> conjunto) {
+            Console.Write("[");
+            foreach (Peca peca in conjunto) {
+                Console.Write(peca + " ");
+            }
+            Console.Write("]");
+        }
+
         public static void ImprimirTabuleiro(Tabuleiro tabuleiro) {
             for (int i = 0; i < tabuleiro.Linhas; i++) {
                 Console.Write($"{8 - i} ");
