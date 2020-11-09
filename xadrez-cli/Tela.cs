@@ -37,8 +37,13 @@ namespace xadrez_cli {
 
         private static void ImprimirConjunto(HashSet<Peca> conjunto) {
             Console.Write("[");
+            int cont = 0;
             foreach (Peca peca in conjunto) {
-                Console.Write(peca + " ");
+                if (cont == 0) {
+                    Console.Write(peca);
+                } else {
+                    Console.Write(peca + " ");
+                }
             }
             Console.Write("]");
         }
