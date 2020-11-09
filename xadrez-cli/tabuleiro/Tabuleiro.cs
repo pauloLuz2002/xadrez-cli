@@ -58,8 +58,18 @@ namespace tabuleiro {
             return true;
         }
 
+        public bool ValidarPosicaoXadrez(char coluna, string linha) {
+            if (!int.TryParse(linha, out int linhaInt)) {
+                return false;
+            }
+            if (coluna >= 'a' && coluna <= 'h' && linhaInt >= 1 && linhaInt <= 8) {
+                return true;
+            }
+            return false;
+        }
+
         public void ValidarPosicao(Posicao posicao) {
-            if  (!PosicaoValida(posicao)) {
+            if (posicao.Linha < 0 || posicao.Linha >= Linhas || posicao.Coluna < 0 || posicao.Coluna >= Colunas) {
                 throw new TabuleiroException("Posição inválida!");
             }
         }

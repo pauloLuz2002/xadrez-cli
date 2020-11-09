@@ -13,6 +13,9 @@ namespace xadrez_cli {
             Console.WriteLine();
             Console.WriteLine($"Turno: {partida.Turno}");
             Console.WriteLine($"Aguardando jogada do jogador que controla as peças de cor {partida.CorPecaJogador.ToString().ToLower()}...");
+            if (partida.Xeque) {
+                Console.WriteLine($"Rei da cor {partida.CorPecaJogador.ToString().ToLower()} está em xeque!");
+            }
         }
 
         private static void ImprimirPecasCapturadas(Partida partida) {
@@ -42,7 +45,7 @@ namespace xadrez_cli {
                 if (cont == 0) {
                     Console.Write(peca);
                 } else {
-                    Console.Write(peca + " ");
+                    Console.Write(", " + peca);
                 }
                 cont++;
             }
@@ -81,15 +84,17 @@ namespace xadrez_cli {
             Console.BackgroundColor = fundo;
         }
 
-        public static PosicaoXadrez LerPosicaoXadrez() {
-            try {
-                string s = Console.ReadLine();
-                char coluna = s[0];
-                int linha = int.Parse(s[1].ToString());
-                return new PosicaoXadrez(coluna, linha);
-            } catch (Exception) {
+        public static PosicaoXadrez LerPosicaoXadrez(Tabuleiro tabuleiro) {
+            string s = Console.ReadLine();
+
+            char coluna = s[0];
+            string linha = s[1].ToString();
+
+            if (!tabuleiro.ValidarPosicaoXadrez(coluna, linha)) {
                 throw new TabuleiroException("Não foi possível ler a posição informada, digite algo como por exemplo: h2.");
             }
+
+            return new PosicaoXadrez(coluna, int.Parse(linha));
         }
 
         public static void ImprimirPeca(Peca peca) {

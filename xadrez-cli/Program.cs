@@ -13,7 +13,7 @@ namespace xadrez_cli {
                         Tela.ImprimirPartida(partida);
 
                         Console.Write("\nOrigem: ");
-                        Posicao origem = Tela.LerPosicaoXadrez().ConverterPosicao();
+                        Posicao origem = Tela.LerPosicaoXadrez(partida.Tabuleiro).ConverterPosicao();
                         partida.ValidarPosicaoOrigem(origem);
 
                         bool[,] posicoesPossiveis = partida.Tabuleiro.Peca(origem).ObterMovimentosPossiveis();
@@ -23,7 +23,7 @@ namespace xadrez_cli {
 
                         Console.WriteLine();
                         Console.Write("Destino: ");
-                        Posicao destino = Tela.LerPosicaoXadrez().ConverterPosicao();
+                        Posicao destino = Tela.LerPosicaoXadrez(partida.Tabuleiro).ConverterPosicao();
                         partida.ValidarPosicaoDestino(origem, destino);
 
                         partida.RealizaJogada(origem, destino);

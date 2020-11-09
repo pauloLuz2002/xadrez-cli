@@ -1,4 +1,6 @@
-﻿namespace tabuleiro {
+﻿using System;
+
+namespace tabuleiro {
     abstract class Peca {
         public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
@@ -19,6 +21,10 @@
 
         public void IncrementarMovimento() {
             Movimentos++;
+        }
+
+        public void DecrementarMovimento() {
+            Movimentos--;
         }
 
         public bool ExisteMovimentosPossiveis() {
