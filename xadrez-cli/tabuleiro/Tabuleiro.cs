@@ -31,7 +31,7 @@ namespace tabuleiro {
         public bool ExistePeca(Posicao posicao) {
             ValidarPosicao(posicao);
             return Peca(posicao) != null;
-        } 
+        }
 
         public void ColocarPeca(Peca peca, Posicao posicao) {
             if (ExistePeca(posicao)) {

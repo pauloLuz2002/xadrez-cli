@@ -7,14 +7,20 @@ using System.Collections.Generic;
 namespace xadrez_cli {
     class Tela {
         public static void ImprimirPartida(Partida partida) {
+            string corPecaJogador = partida.CorPecaJogador.ToString().ToLower();
             ImprimirTabuleiro(partida.Tabuleiro);
             Console.WriteLine();
             ImprimirPecasCapturadas(partida);
             Console.WriteLine();
             Console.WriteLine($"Turno: {partida.Turno}");
-            Console.WriteLine($"Aguardando jogada do jogador que controla as peças de cor {partida.CorPecaJogador.ToString().ToLower()}...");
-            if (partida.Xeque) {
-                Console.WriteLine($"Rei da cor {partida.CorPecaJogador.ToString().ToLower()} está em xeque!");
+            if (!partida.Terminada) {
+                Console.WriteLine($"Aguardando jogada do jogador que controla as peças de cor {corPecaJogador}...");
+                if (partida.Xeque) {
+                    Console.WriteLine($"Rei da cor {corPecaJogador} está em xeque!");
+                }
+            } else {
+                Console.WriteLine("XEQUE-MATE!");
+                Console.WriteLine($"Vencedor: jogador das peças {corPecaJogador}s");
             }
         }
 
