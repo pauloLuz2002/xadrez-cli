@@ -44,6 +44,7 @@ namespace xadrez_cli {
                 } else {
                     Console.Write(peca + " ");
                 }
+                cont++;
             }
             Console.Write("]");
         }
