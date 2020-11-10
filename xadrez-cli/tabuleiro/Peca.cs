@@ -15,8 +15,8 @@ namespace tabuleiro {
         }
 
         protected bool VerificarMovimento(Posicao posicao) {
-            Peca p = Tabuleiro.Peca(posicao);
-            return p == null || p.Cor != Cor;
+            Peca peca = Tabuleiro.Peca(posicao);
+            return peca == null || peca.Cor != Cor;
         }
 
         public void IncrementarMovimento() {
