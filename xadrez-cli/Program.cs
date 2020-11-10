@@ -16,7 +16,7 @@ namespace xadrez_cli {
                         Posicao origem = Tela.LerPosicaoXadrez(partida.Tabuleiro).ConverterPosicao();
                         partida.ValidarPosicaoOrigem(origem);
 
-                        bool[,] posicoesPossiveis = partida.Tabuleiro.Peca(origem).ObterMovimentosPossiveis();
+                        bool[,] posicoesPossiveis = partida.Tabuleiro.Peca(origem).MovimentosPossiveis();
 
                         Console.Clear();
                         Tela.ImprimirTabuleiro(partida.Tabuleiro, posicoesPossiveis);

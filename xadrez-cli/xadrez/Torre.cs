@@ -10,7 +10,7 @@ namespace xadrez {
             return "T";
         }
 
-        public override bool[,] ObterMovimentosPossiveis() {
+        public override bool[,] MovimentosPossiveis() {
             bool[,] tempMatriz = new bool[Tabuleiro.Linhas, Tabuleiro.Colunas];
 
             Posicao tempPosicao = new Posicao(0, 0);

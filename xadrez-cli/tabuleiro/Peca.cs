@@ -28,7 +28,7 @@ namespace tabuleiro {
         }
 
         public bool ExisteMovimentosPossiveis() {
-            bool[,] mat = ObterMovimentosPossiveis();
+            bool[,] mat = MovimentosPossiveis();
 
             for (int i = 0; i < Tabuleiro.Linhas; i++) {
                 for (int j = 0; j < Tabuleiro.Colunas; j++) {
@@ -41,10 +41,10 @@ namespace tabuleiro {
             return false;
         }
 
-        public bool VerificarDestino(Posicao posicao) {
-            return ObterMovimentosPossiveis()[posicao.Linha, posicao.Coluna];
+        public bool ObterMovimentosPossiveis(Posicao posicao) {
+            return MovimentosPossiveis()[posicao.Linha, posicao.Coluna];
         }
 
-        public abstract bool[,] ObterMovimentosPossiveis();
+        public abstract bool[,] MovimentosPossiveis();
     }
 }

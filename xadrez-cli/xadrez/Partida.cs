@@ -89,7 +89,7 @@ namespace xadrez {
         }
 
         public void ValidarPosicaoDestino(Posicao origem, Posicao destino) {
-            if (!Tabuleiro.Peca(origem).VerificarDestino(destino)) {
+            if (!Tabuleiro.Peca(origem).ObterMovimentosPossiveis(destino)) {
                 throw new TabuleiroException("Posição de destino inválida, pois não está listada nos movimentos possíveis.");
             }
         }
@@ -137,7 +137,7 @@ namespace xadrez {
                 throw new TabuleiroException($"Rei da cor {cor} não está no tabuleiro...");
             }
             foreach (Peca peca in ObterPecasJogo(IdentificarCorAdversaria(cor))) {
-                bool[,] tempMat = peca.ObterMovimentosPossiveis();
+                bool[,] tempMat = peca.MovimentosPossiveis();
                 if (tempMat[r.Posicao.Linha, r.Posicao.Coluna]) {
                     return true;
                 }
@@ -150,7 +150,7 @@ namespace xadrez {
                 return false;
             }
             foreach (Peca peca in ObterPecasJogo(cor)) {
-                bool[,] tempMat = peca.ObterMovimentosPossiveis();
+                bool[,] tempMat = peca.MovimentosPossiveis();
                 for (int i = 0; i < Tabuleiro.Linhas; i++) {
                     for (int j = 0; j < Tabuleiro.Colunas; j++) {
                         if (tempMat[i, j]) {
