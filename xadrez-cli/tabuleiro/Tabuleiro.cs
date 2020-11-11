@@ -62,10 +62,10 @@ namespace tabuleiro {
             if (!int.TryParse(linha, out int linhaInt)) {
                 return false;
             }
-            if (coluna >= 'a' && coluna <= 'h' && linhaInt >= 1 && linhaInt <= 8) {
-                return true;
+            if (coluna > 'h') {
+                return false;
             }
-            return false;
+            return true;
         }
 
         public void ValidarPosicao(Posicao posicao) {

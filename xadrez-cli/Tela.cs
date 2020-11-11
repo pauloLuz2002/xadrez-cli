@@ -93,6 +93,10 @@ namespace xadrez_cli {
         public static PosicaoXadrez LerPosicaoXadrez(Tabuleiro tabuleiro) {
             string s = Console.ReadLine();
 
+            if (s == "" || s.Length != 2) {
+                throw new TabuleiroException("Digite uma posição válida, não pode ser vazio ou menor do que dois caracteres.");
+            }
+
             char coluna = s[0];
             string linha = s[1].ToString();
 
