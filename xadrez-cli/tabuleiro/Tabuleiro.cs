@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace tabuleiro {
+﻿namespace tabuleiro {
     class Tabuleiro {
         public int Linhas { get; set; }
         public int Colunas { get; set; }
@@ -13,19 +11,11 @@ namespace tabuleiro {
         }
 
         public Peca Peca(int linha, int coluna) {
-            try {
-                return Pecas[linha, coluna];
-            } catch (Exception) {
-                throw new TabuleiroException("Posição informada não está presente no tabuleiro.");
-            }
+            return Pecas[linha, coluna];
         }
 
         public Peca Peca(Posicao posicao) {
-            try {
-                return Pecas[posicao.Linha, posicao.Coluna];
-            } catch (Exception) {
-                throw new TabuleiroException("Posição informada não está presente no tabuleiro.");
-            }
+            return Pecas[posicao.Linha, posicao.Coluna];
         }
 
         public bool ExistePeca(Posicao posicao) {
@@ -59,10 +49,13 @@ namespace tabuleiro {
         }
 
         public bool ValidarPosicaoXadrez(char coluna, string linha) {
+            if (!(coluna >= 'a' && coluna <= 'h')) {
+                return false;
+            }
             if (!int.TryParse(linha, out int linhaInt)) {
                 return false;
             }
-            if (coluna > 'h') {
+            if (!(linhaInt >= 1 && linhaInt <= 8)) {
                 return false;
             }
             return true;
