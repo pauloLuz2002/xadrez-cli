@@ -14,13 +14,13 @@ namespace xadrez_cli {
             Console.WriteLine();
             Console.WriteLine($"Turno: {partida.Turno}");
             if (!partida.Terminada) {
-                Console.WriteLine($"Aguardando jogada do jogador que controla as peças de cor {corPecaJogador}...");
+                Console.WriteLine($"Vez das {corPecaJogador}s...");
                 if (partida.Xeque) {
                     Console.WriteLine($"Rei da cor {corPecaJogador} está em xeque!");
                 }
             } else {
                 Console.WriteLine("XEQUE-MATE!");
-                Console.WriteLine($"Vencedor: jogador das peças {corPecaJogador}s");
+                Console.WriteLine($"Vencedor: {corPecaJogador}s");
             }
         }
 
